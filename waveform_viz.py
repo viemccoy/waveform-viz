@@ -23,7 +23,7 @@ def generate_waveform_stretched(wave_type, frequency=0.0, sample_rate=SAMPLE_RAT
     else:
         waveform = np.random.normal(size=len(t))
 
-    return waveform
+    return t, waveform
 
 st.title('Waveform Visualizer by V McCoy')
 
@@ -48,8 +48,4 @@ if st.button('Generate and play sound'):
     scaled = np.int16(y_vals/np.max(np.abs(y_vals)) * 32767)
     write(filename, SAMPLE_RATE, scaled)
 
-    try:
-        from IPython.lib.display import Audio
-        st.audio(Audio(filename, autoplay=True))
-    except ImportError:
-        pass
+    st.audio(Audio(filename, autoplay=True))
