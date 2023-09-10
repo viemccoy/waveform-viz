@@ -19,7 +19,7 @@ def generate_waveform(wave_type, frequency=0.0):
         
     return t, waveform
 
-st.title('Waveform Generator')
+st.title('Waveform Visualizer by V McCoy')
 
 waveforms = ['sine', 'square', 'sawtooth', 'triangle', 'noise']
 selected_waveform = st.selectbox('Select Waveform:', waveforms)
@@ -30,7 +30,10 @@ if selected_waveform != 'noise':
 
 t_vals, y_vals = generate_waveform(selected_waveform, frequency_input_value_hz)
 
-plt.plot(t_vals, y_vals)   
-plt.xlabel('Time')
-plt.ylabel('Amplitude')
-st.pyplot()
+fig, ax = plt.subplots()
+ax.plot(t_vals, y_vals)
+
+ax.set_xlabel('Time')
+ax.set_ylabel('Amplitude')
+
+st.pyplot(fig)
