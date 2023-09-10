@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 from scipy import signal
 import streamlit as st
 
@@ -34,3 +34,6 @@ plt.plot(t_vals, y_vals)
 plt.xlabel('Time')
 plt.ylabel('Amplitude')
 st.pyplot()
+
+mpld3.show()
+
