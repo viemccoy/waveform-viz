@@ -1,5 +1,3 @@
-## visualize waveforms, made for CS class
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
