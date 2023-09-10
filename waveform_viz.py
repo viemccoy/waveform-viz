@@ -22,13 +22,13 @@ def generate_waveform(wave_type, frequency=0.0):
 st.title('Waveform Generator')
 
 waveforms = ['sine', 'square', 'sawtooth', 'triangle', 'noise']
-selected_waveform_index = st.selectbox('Select Waveform:', waveforms)
+selected_waveform = st.selectbox('Select Waveform:', waveforms)
 frequency_input_value_hz=0
 
-if selected_waveform_index != len(waveforms) - 1:
+if selected_waveform != 'noise':
     frequency_input_value_hz = st.slider('Frequency (Hz):', min_value=0, max_value=20000)
 
-t_vals, y_vals = generate_waveform(waveforms[selected_waveform_index], frequency_input_value_hz)
+t_vals, y_vals = generate_waveform(selected_waveform, frequency_input_value_hz)
 
 plt.plot(t_vals, y_vals)   
 plt.xlabel('Time')
