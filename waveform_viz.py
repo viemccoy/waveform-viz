@@ -26,7 +26,7 @@ def generate_waveform_stretched(wave_type, frequency=0.0, sample_rate=SAMPLE_RAT
 
     return waveform
 
-st.title('Waveform Visualizer by V McCoy')
+st.title('Waveform Visualizer by V <3')
 
 waveforms = ['sine', 'square', 'sawtooth', 'triangle', 'noise']
 selected_waveform = st.selectbox('Select Waveform:', waveforms)
