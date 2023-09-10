@@ -24,7 +24,7 @@ def generate_waveform_stretched(wave_type, frequency=0.0, sample_rate=SAMPLE_RAT
     else:
         waveform = np.random.normal(size=len(t))
 
-    return pd.DataFrame({ 'Time': t, 'Waveform': waveform})
+    return waveform
 
 st.title('Waveform Visualizer by V McCoy')
 
@@ -38,25 +38,12 @@ if selected_waveform != 'noise':
 waveform_data = generate_waveform_stretched(selected_waveform, frequency_input_value_hz)
 
 fig, ax = plt.subplots()
-ax.plot(waveform_data.Time.iloc[:1000], waveform_data.Waveform.iloc[:1000])  # plot only first 1000 samples
+ax.plot(np.linspace(0, DURATION, SAMPLE_RATE * DURATION)[:1000], waveform_data[:1000])  # plot only first 1000 samples
 ax.set_xlabel('Time')
 ax.set_ylabel('Amplitude')
 
 st.pyplot(fig)
 
 if st.button('Generate and play sound'):
-    filename = 'out.wav'
-    scaled = np.int16(waveform_data.Waveform/np.max(np.abs(waveform_data.Waveform.values)) * 32767)
-    write(filename, SAMPLE_RATE, scaled)
-    audio_file = open(filename, 'rb')
-    audio_bytes = audio_file.read()
-    st.audio(audio_bytes, format='audio/wav', autoplay=True)
-
-csv = waveform_data.to_csv(index=False).encode('utf-8')
-
-st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='waveform_data.csv',
-    mime='text/csv',
-)
+    audio = np.int16(waveform_data/np.max(np.abs(waveform_data)) * 32767)
+    st.audio(audio, sample_rate=SAMPLE_RATE)
