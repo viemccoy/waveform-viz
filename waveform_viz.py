@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from scipy import signal
 import streamlit as st
 from scipy.io.wavfile import write
-import os
-from IPython.lib.display import Audio
 
 SAMPLE_RATE = 44100
 DURATION = 10
@@ -19,7 +17,7 @@ def generate_waveform_stretched(wave_type, frequency=0.0, sample_rate=SAMPLE_RAT
     elif wave_type == 'sawtooth':
         waveform = 0.5 * signal.sawtooth(2*np.pi*frequency*t)
     elif wave_type == 'triangle':
-        waveform = 0.5 * signal.sawtooth(2*np.pi*frequency*t,width=0.5) 
+        waveform = 0.5 * signal.sawtooth(2*np.pi*frequency*t,width=0.5)
     else:
         waveform = np.random.normal(size=len(t))
 
@@ -47,5 +45,4 @@ if st.button('Generate and play sound'):
     filename = 'out.wav'
     scaled = np.int16(y_vals/np.max(np.abs(y_vals)) * 32767)
     write(filename, SAMPLE_RATE, scaled)
-
-    st.audio(Audio(filename, autoplay=True))
+    st.audio(filename, autoplay=True)
